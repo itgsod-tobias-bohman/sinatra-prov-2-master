@@ -1,12 +1,14 @@
 h1= "Available times for #{@movie.name} in #{@cinema.name} are:"
-div class='.col-md-4'
-  -for time in @times
-    p= "Date & Time: #{time.start_time}"
-div class='.col-md-4'
-  -for room in @rooms
-    p= "Room: #{room[0].name}"
-    p= "Number of seats: #{room[0].number_of_seats}"
-div class='.col-md-4'
-  -for room in @rooms
-    a href="#" class="btn btn-default" Book
+.container-fluid
+  .row
+    div class='.col-md-4'
+      -for time in @times
+        p= "Date & Time: #{time.start_time}"
+    div class='.col-md-4'
+      -for room in @rooms
+        p= "Room: #{room[0].name}"
+        p= "Number of seats: #{room[0].number_of_seats}"
+    div class='.col-md-4'
+      -for room in @rooms
+        a href="#" class="btn btn-default" Book
 a href='/' class='btn btn-warning' Back
