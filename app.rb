@@ -31,11 +31,35 @@ class App < Sinatra::Base
 
     @times = Showing.all(:cinema_id => "#{@cinema.id}", :movie_id => "#{@movie.id}")
 
+    room_list = []
+    @times.each do |x|
+      room_list << x.room_id
+    end
+
+    @rooms = []
+    room_list.each do |x|
+      @rooms << Room.all(:id => x)
+    end
+
     slim :times
   end
 
   get '/movie/:movie/' do |movie|
     @movie = Movie.first(:name => "#{movie}")
+
+    @showings = Showing.all(:movie_id => "#{@movie.id}", :order => [:cinema_id.asc])
+
+    cinema_list = []
+    @showings.each do |x|
+      cinema_list << x.cinema_id
+    end
+    cinema_list = cinema_list.uniq
+
+    @cinemas = []
+    cinema_list.each do |x|
+      @cinemas << Cinema.all(:id => x)
+    end
+
     slim :movie
   end
 

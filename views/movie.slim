@@ -1,1 +1,6 @@
+h1= "#{@movie.name} is currently shown at:"
+
+-for cinema in @cinemas
+  a href="/cinema/#{cinema[0].name}/#{@movie.name}" class="btn btn-default" = cinema[0].name
+
 a href='/' class='btn btn-warning' Back
