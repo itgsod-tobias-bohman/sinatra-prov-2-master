@@ -6,16 +6,35 @@ class App < Sinatra::Base
     slim :index
   end
 
-  get '/cinema/:cinema' do |cinema|
+  get '/cinema/:cinema/' do |cinema|
     @cinema = Cinema.first(:name => "#{cinema}")
 
-    @showings = Showing.all(:cinema_id => "#{@cinema.id}", :fields => [:movie_id], :unique => true, :order => [:movie_id.asc])
+    @showings = Showing.all(:cinema_id => "#{@cinema.id}", :order => [:movie_id.asc])
 
-    @showings.inspect
-    #slim :cinema
+    movie_list = []
+    @showings.each do |x|
+      movie_list << x.movie_id
+    end
+    movie_list = movie_list.uniq
+
+    @movies = []
+    movie_list.each do |x|
+      @movies << Movie.all(:id => x)
+    end
+
+    slim :cinema
   end
 
-  get '/movie/:movie' do |movie|
+  get '/cinema/:cinema/:movie' do |cinema, movie|
+    @cinema = Cinema.first(:name => "#{cinema}")
+    @movie = Movie.first(:name => "#{movie}")
+
+    @times = Showing.all(:cinema_id => "#{@cinema.id}", :movie_id => "#{@movie.id}")
+
+    slim :times
+  end
+
+  get '/movie/:movie/' do |movie|
     @movie = Movie.first(:name => "#{movie}")
     slim :movie
   end

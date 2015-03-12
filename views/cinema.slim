@@ -1,6 +1,6 @@
 h1= "#{@cinema.name} is currently hosting:"
 
--for showing in @showings
-  p= showing
+-for movie in @movies
+  a href="#{movie[0].name}" class="btn btn-default" = movie[0].name
 
 a href='/' class='btn btn-warning' Back
