@@ -41,6 +41,7 @@ class App < Sinatra::Base
       @rooms << Room.all(:id => x)
     end
 
+    # Utseende har en bugg, texten ligger ej bredvid motsvarande 'book' knapp och 'book' funktionen funkar ej än.
     slim :times
   end
 
